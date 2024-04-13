@@ -1,0 +1,1050 @@
+openapi: 3.0.3
+info:
+  title: On-counter billing System
+  version: 0.0.0
+  description: Simplify Your billng process
+paths:
+  /on_counter_billing/bill/:
+    get:
+      operationId: on_counter_billing_bill_list
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bill_'
+          description: ''
+  /on_counter_billing/bill/{slug}/:
+    get:
+      operationId: on_counter_billing_bill_retrieve
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill_'
+          description: ''
+    delete:
+      operationId: on_counter_billing_bill_destroy
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /on_counter_billing/createbill/:
+    post:
+      operationId: on_counter_billing_createbill_create
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bill_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Bill_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Bill_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill_'
+          description: ''
+  /on_counter_billing/customer/:
+    get:
+      operationId: on_counter_billing_customer_list
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer_'
+          description: ''
+    post:
+      operationId: on_counter_billing_customer_create
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Customer_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Customer_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer_'
+          description: ''
+  /on_counter_billing/customer/{slug}/:
+    get:
+      operationId: on_counter_billing_customer_retrieve
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer_'
+          description: ''
+    put:
+      operationId: on_counter_billing_customer_update
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Customer_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Customer_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer_'
+          description: ''
+    patch:
+      operationId: on_counter_billing_customer_partial_update
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomer_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomer_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomer_'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer_'
+          description: ''
+    delete:
+      operationId: on_counter_billing_customer_destroy
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /on_counter_billing/employee/:
+    get:
+      operationId: on_counter_billing_employee_list
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee_'
+          description: ''
+    post:
+      operationId: on_counter_billing_employee_create
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee_'
+          description: ''
+  /on_counter_billing/employee/{slug}/:
+    get:
+      operationId: on_counter_billing_employee_retrieve
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee_'
+          description: ''
+    put:
+      operationId: on_counter_billing_employee_update
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee_'
+          description: ''
+    patch:
+      operationId: on_counter_billing_employee_partial_update
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployee_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployee_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployee_'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee_'
+          description: ''
+    delete:
+      operationId: on_counter_billing_employee_destroy
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /on_counter_billing/employee/token/:
+    post:
+      operationId: on_counter_billing_employee_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /on_counter_billing/employee/token/refresh/:
+    post:
+      operationId: on_counter_billing_employee_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /on_counter_billing/employee_profile/:
+    get:
+      operationId: on_counter_billing_employee_profile_list
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee_Profile_'
+          description: ''
+    post:
+      operationId: on_counter_billing_employee_profile_create
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee_Profile_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee_Profile_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee_Profile_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee_Profile_'
+          description: ''
+  /on_counter_billing/employee_profile/{slug}/:
+    get:
+      operationId: on_counter_billing_employee_profile_retrieve
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee_Profile_'
+          description: ''
+    put:
+      operationId: on_counter_billing_employee_profile_update
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee_Profile_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee_Profile_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee_Profile_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee_Profile_'
+          description: ''
+    patch:
+      operationId: on_counter_billing_employee_profile_partial_update
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployee_Profile_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployee_Profile_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployee_Profile_'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee_Profile_'
+          description: ''
+    delete:
+      operationId: on_counter_billing_employee_profile_destroy
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /on_counter_billing/product/:
+    get:
+      operationId: on_counter_billing_product_list
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product_'
+          description: ''
+    post:
+      operationId: on_counter_billing_product_create
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_'
+          description: ''
+  /on_counter_billing/product/{slug}/:
+    get:
+      operationId: on_counter_billing_product_retrieve
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_'
+          description: ''
+    put:
+      operationId: on_counter_billing_product_update
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_'
+          description: ''
+    patch:
+      operationId: on_counter_billing_product_partial_update
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProduct_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProduct_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProduct_'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product_'
+          description: ''
+    delete:
+      operationId: on_counter_billing_product_destroy
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Bill_:
+      type: object
+      properties:
+        Count:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        Price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+        Employee:
+          type: integer
+          title: Employee_id
+        Customer:
+          type: integer
+          title: Customer_id
+        Product:
+          type: integer
+          title: Product_id
+      required:
+      - Count
+      - Customer
+      - Employee
+      - Price
+      - Product
+    Customer_:
+      type: object
+      properties:
+        Customer_name:
+          type: string
+          title: Name
+          maxLength: 30
+        Customer_mobile:
+          type: string
+          title: Mobile Number
+          maxLength: 128
+        Customer_email:
+          type: string
+          format: email
+          title: Email
+          maxLength: 254
+        Customer_address:
+          type: string
+          title: Address
+          maxLength: 100
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+      required:
+      - Customer_address
+      - Customer_email
+      - Customer_mobile
+      - Customer_name
+    Employee_:
+      type: object
+      properties:
+        password:
+          type: string
+          writeOnly: true
+          description: create a strong passsword using alphanumerics and special characters.
+        confirm_password:
+          type: string
+          writeOnly: true
+          description: same as in the password field.
+        Employee_name:
+          type: string
+          title: Name
+          maxLength: 30
+        Employee_username:
+          type: string
+          title: Username
+          maxLength: 30
+        is_staff:
+          type: boolean
+        is_active:
+          type: boolean
+        is_superuser:
+          type: boolean
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+      required:
+      - Employee_name
+      - Employee_username
+      - confirm_password
+      - password
+    Employee_Profile_:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        Employee_mobile:
+          type: string
+          title: Mobile Number
+          maxLength: 128
+        Employee_email:
+          type: string
+          format: email
+          title: Email
+          maxLength: 254
+        Employee_address:
+          type: string
+          title: Address
+          maxLength: 200
+        Employee_image:
+          type: string
+          format: uri
+          nullable: true
+          title: Image
+        maximum_sale:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+        Employee:
+          type: integer
+          title: Employee_id
+      required:
+      - Employee
+      - Employee_address
+      - Employee_email
+      - Employee_mobile
+      - id
+    PatchedCustomer_:
+      type: object
+      properties:
+        Customer_name:
+          type: string
+          title: Name
+          maxLength: 30
+        Customer_mobile:
+          type: string
+          title: Mobile Number
+          maxLength: 128
+        Customer_email:
+          type: string
+          format: email
+          title: Email
+          maxLength: 254
+        Customer_address:
+          type: string
+          title: Address
+          maxLength: 100
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+    PatchedEmployee_:
+      type: object
+      properties:
+        password:
+          type: string
+          writeOnly: true
+          description: create a strong passsword using alphanumerics and special characters.
+        confirm_password:
+          type: string
+          writeOnly: true
+          description: same as in the password field.
+        Employee_name:
+          type: string
+          title: Name
+          maxLength: 30
+        Employee_username:
+          type: string
+          title: Username
+          maxLength: 30
+        is_staff:
+          type: boolean
+        is_active:
+          type: boolean
+        is_superuser:
+          type: boolean
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+    PatchedEmployee_Profile_:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        Employee_mobile:
+          type: string
+          title: Mobile Number
+          maxLength: 128
+        Employee_email:
+          type: string
+          format: email
+          title: Email
+          maxLength: 254
+        Employee_address:
+          type: string
+          title: Address
+          maxLength: 200
+        Employee_image:
+          type: string
+          format: uri
+          nullable: true
+          title: Image
+        maximum_sale:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+        Employee:
+          type: integer
+          title: Employee_id
+    PatchedProduct_:
+      type: object
+      properties:
+        Product_name:
+          type: string
+          title: Name
+          maxLength: 30
+        Product_description:
+          type: string
+          title: Description
+          maxLength: 100
+        Product_quantity:
+          type: string
+          title: Quantity
+          description: Quantity like 1kg, 1.5lit, 200g. if no weight leave it blank
+          maxLength: 10
+        Product_count:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Count
+        Product_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          title: Price Per quantity/count in Rs.
+        Product_image:
+          type: string
+          format: uri
+          nullable: true
+        maximum_sale:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+    Product_:
+      type: object
+      properties:
+        Product_name:
+          type: string
+          title: Name
+          maxLength: 30
+        Product_description:
+          type: string
+          title: Description
+          maxLength: 100
+        Product_quantity:
+          type: string
+          title: Quantity
+          description: Quantity like 1kg, 1.5lit, 200g. if no weight leave it blank
+          maxLength: 10
+        Product_count:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Count
+        Product_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          title: Price Per quantity/count in Rs.
+        Product_image:
+          type: string
+          format: uri
+          nullable: true
+        maximum_sale:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+      required:
+      - Product_count
+      - Product_description
+      - Product_name
+      - Product_price
+      - Product_quantity
+    TokenObtainPair:
+      type: object
+      properties:
+        Employee_username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - Employee_username
+      - access
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
