@@ -19,9 +19,11 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView
+from on_counter_billing_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',views.home,name='home'),
     path('on_counter_billing/',include('on_counter_billing_app.urls')),
     path('api/schema/',SpectacularAPIView.as_view(),name = 'api_schema'),
     path('api/schema/docs/',SpectacularSwaggerView.as_view(url_name = "api_schema")),

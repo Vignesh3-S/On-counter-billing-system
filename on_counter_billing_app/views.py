@@ -6,11 +6,29 @@ from rest_framework.permissions import IsAdminUser,IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status 
 from rest_framework.views import APIView
+from django.shortcuts import render
+from django.contrib.auth.models import Permission
+
+
+def home(request):
+    return render(request,'on_counter_billing_app/home.html')
 
 class Showall_Add_Employee(generics.ListCreateAPIView):
     queryset = Employee.objects.all()
     serializer_class = Employee_Serializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, *args, **kwargs):
+        if request.user.has_perm('on_counter_billing_app.add_employee'):
+            return self.list(request, *args, **kwargs)
+        else:
+            return Response('Not allowed to view Employees',status=status.HTTP_401_UNAUTHORIZED)
+    
+    def post(self,request,*args,**kwargs):
+        if request.user.has_perm('on_counter_billing_app.add_employee'):
+            return self.create(request,*args,**kwargs)
+        else:
+            return Response('Not allowed to add Employee',status=status.HTTP_401_UNAUTHORIZED)
     
 class Get_Update_Delete_Employee(generics.RetrieveUpdateDestroyAPIView):
     queryset = Employee.objects.all()
@@ -21,7 +39,19 @@ class Get_Update_Delete_Employee(generics.RetrieveUpdateDestroyAPIView):
 class All_Create_Employee_Profile(generics.ListCreateAPIView):
     queryset = Employee_Profile.objects.all()
     serializer_class = Employee_Profile_Serializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, *args, **kwargs):
+        if request.user.has_perm('on_counter_billing_app.add_employee_profile'):
+            return self.list(request, *args, **kwargs)
+        else:
+            return Response('Not allowed to view Employees profiles',status=status.HTTP_401_UNAUTHORIZED)
+    
+    def post(self,request,*args,**kwargs):
+        if request.user.has_perm('on_counter_billing_app.add_employee_profile'):
+            return self.create(request,*args,**kwargs)
+        else:
+            return Response('Not allowed to add Employee profiles',status=status.HTTP_401_UNAUTHORIZED)
 
 class Get_Update_Delete_Employee_Profile(generics.RetrieveUpdateDestroyAPIView):
     queryset = Employee_Profile.objects.all()

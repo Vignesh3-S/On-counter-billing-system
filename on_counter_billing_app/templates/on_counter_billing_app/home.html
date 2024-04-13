@@ -1,0 +1,49 @@
+{% extends 'on_counter_billing_app/home_index.html' %}
+{% block title %} OCB home {% endblock %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+<script src="https://kit.fontawesome.com/17eac9c9ad.js" crossorigin="anonymous"> </script>
+{% block content %}
+  <style>
+    .dropdown-menu li {
+      position: relative;
+      }
+      .dropdown-menu .dropdown-submenu {
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: -7px;
+      }
+      .dropdown-menu .dropdown-submenu-left {
+      right: 100%;
+      left: auto;
+      }
+      .dropdown-menu > li:hover > .dropdown-submenu {
+      display: block;
+      }
+  </style>
+  <!--intro part-->
+  <section class="vh-100" style="background-color:#8ECDE2;">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark";>
+    <div class="container-fluid py-4">
+      <a href="{}" style="text-decoration: none;--animate-duration: 900ms;color:#FFEBDD;" class="animate__animated animate__bounce"><h2 class="text-start">On Counter Billing System</h2></a> 
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+  <div> <br><br><br>
+    <h1 class ="text-center animate__animated animate__zoomIn animate__delay-1s" style="color:#FFEBDD; font-family:'Times New Roman', Times, serif;
+    font-size: 80px; margin-top:10%;--animate-duration: 1s;">Simplify Your Billing Process</h1>
+    <p class="text-center  test-text animate__animated animate__backInUp animate__delay-1s" 
+    style="--animate-duration: 1s;font-size:20px;margin-bottom:8%;color:#FFEBDD;">
+    Streamline and enhance your financial transactions with our efficient billing system.</p>
+    <div class="d-grid gap-2 col-6 mx-auto" style="margin-top:10%;">
+      <a href="api/schema/docs/" class="btn btn-lg animate__animated animate__backInDown animate__delay-2s" style="background-color:#292422;color:#8ECDE2;" type="button">Open swagger interface</a>
+    </div>
+  </div> <br>
+  </section>
+{% endblock %}

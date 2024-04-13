@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     # cloudinary
     'cloudinary',
+    #bootstrap5
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
