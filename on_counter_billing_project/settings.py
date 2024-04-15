@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'on_counter_billing_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-conn = psycopg2.connect('postgres://avnadmin:AVNS_M_QrsVHX7s4opBT7RrJ@pg-e855345-pas-ver-1.b.aivencloud.com:19446/defaultdb?sslmode=require')
+conn = psycopg2.connect(f'postgres://avnadmin:{os.getenv("PASSWORD")}@pg-e855345-pas-ver-1.b.aivencloud.com:19446/defaultdb?sslmode=require')
 query_sql = 'SELECT VERSION()'
 cur = conn.cursor()
 cur.execute(query_sql)
@@ -104,10 +104,10 @@ DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'defaultdb', 
-        'USER': 'avnadmin' ,
-        'PASSWORD':'AVNS_M_QrsVHX7s4opBT7RrJ',
-        'HOST': 'pg-e855345-pas-ver-1.b.aivencloud.com', 
-        'PORT': '19446',
+        'USER': os.getenv("USER"),
+        'PASSWORD':os.getenv("PASSWORD"),
+        'HOST': os.getenv("HOST"), 
+        'PORT': os.getenv("PORT"),
     }
 }
 
