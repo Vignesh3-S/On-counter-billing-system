@@ -15,6 +15,7 @@ from datetime import timedelta
 import os
 from dotenv import load_dotenv
 load_dotenv()
+import psycopg2
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,17 +93,21 @@ WSGI_APPLICATION = 'on_counter_billing_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+conn = psycopg2.connect('postgres://avnadmin:AVNS_M_QrsVHX7s4opBT7RrJ@pg-e855345-pas-ver-1.b.aivencloud.com:19446/defaultdb?sslmode=require')
+query_sql = 'SELECT VERSION()'
+cur = conn.cursor()
+cur.execute(query_sql)
+version = cur.fetchone()[0]
+#print(version)
+
 DATABASES = {
    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'on_counter_billing_database', 
-        'USER': os.getenv("USER") ,
-        'PASSWORD':os.getenv("PASSWORD") ,
-        'HOST': os.getenv("HOST") , 
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'defaultdb', 
+        'USER': 'avnadmin' ,
+        'PASSWORD':'AVNS_M_QrsVHX7s4opBT7RrJ',
+        'HOST': 'pg-e855345-pas-ver-1.b.aivencloud.com', 
         'PORT': '19446',
-        'OPTIONS': {  
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
-        } 
     }
 }
 

@@ -4,7 +4,7 @@ DOCUMENT TO HOW TO TEST API
 
 For Testing use the credentials,
 	
-	Employee_username = Employee admin
+	Employee_username = Admin Employee
 	password = Empadmin123@#
 
 use the below values as the Department values:
