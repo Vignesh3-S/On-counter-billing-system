@@ -19,6 +19,7 @@ class Employee_Serializer(serializers.ModelSerializer):
         exclude = ['id']
     
     def create(self,data):
+        print(data)
         department = data.get('Employee_department')
         if department == 'Product_Adder' or department == 'Product_Seller' or department == 'Customer_Adder':
             group = Group.objects.get(name=department)
@@ -36,6 +37,7 @@ class Employee_Serializer(serializers.ModelSerializer):
         data.pop('confirm_password')    
         data['password'] = make_password(data.get('password'))
         data['slug'] = slugify(data.get('Employee_username'))
+        data['is_active'] = True
         return super(Employee_Serializer,self).create(data)
     
     def update(self, instance,data):
@@ -85,6 +87,11 @@ class Product_Serializer(serializers.ModelSerializer):
         model = Product
         exclude = ['id']
     
+    def to_representation(self, instance):
+        product = super(Product_Serializer, self).to_representation(instance)
+        product['Product_price'] = "Rs."+str(instance.Product_price)+" only."
+        return product
+    
     def create(self,data):
         data['slug'] = str(slugify(data.get('Product_name'))) + str(random.randrange(1000,9999)) 
         return super(Product_Serializer,self).create(data)
@@ -103,8 +110,21 @@ class Bill_Serializer(serializers.ModelSerializer):
         user['Employee'] = instance.Employee.Employee_name
         user['Customer'] = instance.Customer.Customer_name
         user['Product'] = instance.Product.Product_name
+        user['Price_per_quantity'] = "Rs."+str(instance.Price_per_quantity)
         return user
     
     def create(self,data):
+        #print(data)
         data['slug'] = str(slugify(data.get('Customer')))+str(slugify(data.get('Product')))+str(slugify(data.get('Employee')))+str(random.randrange(1000,9999))  
-        return super(Bill_Serializer,self).create(data)
+        super(Bill_Serializer,self).create(data)
+        obj = Bill_Customer.objects.get(slug=data['slug'])
+        #print("obj",obj)
+        if data.get('GST') > 0:
+            gst = data.get('Price_per_quantity')*data.get('GST')/100
+            #print(data.get('Count'))
+            #print(data.get('Price_per_quantity'))
+            obj.Total_Price = float("{0:.2f}".format(data.get('Count')*data.get('Price_per_quantity')))+float("{0:.3f}".format(gst))
+        else:
+            obj.Total_Price = float("{0:.2f}".format(data.get('Count')*data.get('Price_per_quantity')))
+        obj.save()
+        return obj

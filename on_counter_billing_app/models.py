@@ -55,9 +55,8 @@ class Employee_Profile(models.Model):
 class Product(models.Model):
     Product_name = models.CharField(max_length=30,verbose_name = _("Name"))
     Product_description = models.TextField(verbose_name=_("Description"),max_length=100)
-    Product_quantity = models.CharField(verbose_name=_("Quantity"),max_length = 10,help_text=_("Quantity like 1kg, 1.5lit, 200g. if no weight leave it blank"))
-    Product_count = models.IntegerField(verbose_name = _("Count"))
-    Product_price = models.DecimalField(verbose_name=_("Price Per quantity/count in Rs."),max_digits=10,decimal_places=2)
+    Product_quantity = models.IntegerField(verbose_name = _("Count"))
+    Product_price = models.DecimalField(verbose_name=_("Price Per quantity in Rs."),max_digits=10,decimal_places=2)
     Product_image = models.ImageField(upload_to="product_images",null=True)
     Product_add_date = models.DateTimeField(auto_now_add=True,verbose_name=_("Date Of Add"),blank=True)
     Product_update_date = models.DateTimeField(auto_now=True,verbose_name=_('Date of Update'),null=True,blank=True)
@@ -84,7 +83,9 @@ class Bill_Customer(models.Model):
     Customer = models.ForeignKey("Customer",on_delete=models.CASCADE,verbose_name=_("Customer_id"))
     Product = models.ForeignKey("Product",on_delete = models.CASCADE,verbose_name = _("Product_id"))
     Count = models.IntegerField(verbose_name = _("Count"))
-    Price = models.DecimalField (max_digits=10,decimal_places=2)
+    Price_per_quantity = models.DecimalField (max_digits=10,decimal_places=2)
+    GST = models.DecimalField(max_digits=7,decimal_places=4)
+    Total_Price = models.DecimalField(max_digits=10,decimal_places=2,null=True,blank=True)
     Sell_date = models.DateTimeField(auto_now_add=True,verbose_name=_("Date Of sell"),blank=True)
     slug = models.SlugField(null=False,max_length = 50,blank=True,unique=True)
     
