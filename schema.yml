@@ -4,9 +4,170 @@ info:
   version: 0.0.0
   description: Simplify Your billng process
 paths:
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /on_counter_billing/analyze/:
+    get:
+      operationId: on_counter_billing_analyze_retrieve
+      tags:
+      - on_counter_billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
   /on_counter_billing/bill/:
     get:
       operationId: on_counter_billing_bill_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
       tags:
       - on_counter_billing
       security:
@@ -16,9 +177,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Bill_'
+                $ref: '#/components/schemas/PaginatedBill_List'
           description: ''
   /on_counter_billing/bill/{slug}/:
     get:
@@ -84,6 +243,13 @@ paths:
   /on_counter_billing/customer/:
     get:
       operationId: on_counter_billing_customer_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
       tags:
       - on_counter_billing
       security:
@@ -93,9 +259,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Customer_'
+                $ref: '#/components/schemas/PaginatedCustomer_List'
           description: ''
     post:
       operationId: on_counter_billing_customer_create
@@ -221,6 +385,13 @@ paths:
   /on_counter_billing/employee/:
     get:
       operationId: on_counter_billing_employee_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
       tags:
       - on_counter_billing
       security:
@@ -230,9 +401,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee_'
+                $ref: '#/components/schemas/PaginatedEmployee_List'
           description: ''
     post:
       operationId: on_counter_billing_employee_create
@@ -412,6 +581,13 @@ paths:
   /on_counter_billing/employee_profile/:
     get:
       operationId: on_counter_billing_employee_profile_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
       tags:
       - on_counter_billing
       security:
@@ -421,9 +597,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee_Profile_'
+                $ref: '#/components/schemas/PaginatedEmployee_Profile_List'
           description: ''
     post:
       operationId: on_counter_billing_employee_profile_create
@@ -549,6 +723,13 @@ paths:
   /on_counter_billing/product/:
     get:
       operationId: on_counter_billing_product_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
       tags:
       - on_counter_billing
       security:
@@ -558,9 +739,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Product_'
+                $ref: '#/components/schemas/PaginatedProduct_List'
           description: ''
     post:
       operationId: on_counter_billing_product_create
@@ -692,10 +871,24 @@ components:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
-        Price:
+        Price_per_quantity:
           type: string
           format: decimal
           pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        GST:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,4})?$
+        Total_Price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        Sell_date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date Of sell
         slug:
           type: string
           maxLength: 50
@@ -713,8 +906,10 @@ components:
       - Count
       - Customer
       - Employee
-      - Price
+      - GST
+      - Price_per_quantity
       - Product
+      - Sell_date
     Customer_:
       type: object
       properties:
@@ -735,15 +930,38 @@ components:
           type: string
           title: Address
           maxLength: 100
+        Customer_Joining_date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date Of Join
+        Customer_update_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Account Updated
         slug:
           type: string
           maxLength: 50
           pattern: ^[-a-zA-Z0-9_]+$
       required:
+      - Customer_Joining_date
       - Customer_address
       - Customer_email
       - Customer_mobile
       - Customer_name
+      - Customer_update_date
+    EmployeeDepartmentEnum:
+      enum:
+      - Product_Adder
+      - Product_Seller
+      - Customer_Adder
+      type: string
+      description: |-
+        * `Product_Adder` - Product_Adder
+        * `Product_Seller` - Product_Seller
+        * `Customer_Adder` - Customer_Adder
     Employee_:
       type: object
       properties:
@@ -759,10 +977,29 @@ components:
           type: string
           title: Name
           maxLength: 30
+        Employee_department:
+          allOf:
+          - $ref: '#/components/schemas/EmployeeDepartmentEnum'
+          title: Department
         Employee_username:
           type: string
           title: Username
           maxLength: 30
+        Employee_Joining_date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date Of Join
+        Employee_update_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Account Updated
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
         is_staff:
           type: boolean
         is_active:
@@ -785,7 +1022,10 @@ components:
             type: integer
           description: Specific permissions for this user.
       required:
+      - Employee_Joining_date
+      - Employee_department
       - Employee_name
+      - Employee_update_date
       - Employee_username
       - confirm_password
       - password
@@ -813,6 +1053,18 @@ components:
           format: uri
           nullable: true
           title: Image
+        Employee_profile_Joining_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Date Of Join
+        Employee_profile_update_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Account Updated
         maximum_sale:
           type: integer
           maximum: 2147483647
@@ -829,7 +1081,124 @@ components:
       - Employee_address
       - Employee_email
       - Employee_mobile
+      - Employee_profile_Joining_date
+      - Employee_profile_update_date
       - id
+    PaginatedBill_List:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bill_'
+    PaginatedCustomer_List:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer_'
+    PaginatedEmployee_List:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Employee_'
+    PaginatedEmployee_Profile_List:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Employee_Profile_'
+    PaginatedProduct_List:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product_'
     PatchedCustomer_:
       type: object
       properties:
@@ -850,6 +1219,17 @@ components:
           type: string
           title: Address
           maxLength: 100
+        Customer_Joining_date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date Of Join
+        Customer_update_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Account Updated
         slug:
           type: string
           maxLength: 50
@@ -869,10 +1249,29 @@ components:
           type: string
           title: Name
           maxLength: 30
+        Employee_department:
+          allOf:
+          - $ref: '#/components/schemas/EmployeeDepartmentEnum'
+          title: Department
         Employee_username:
           type: string
           title: Username
           maxLength: 30
+        Employee_Joining_date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date Of Join
+        Employee_update_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Account Updated
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
         is_staff:
           type: boolean
         is_active:
@@ -918,6 +1317,18 @@ components:
           format: uri
           nullable: true
           title: Image
+        Employee_profile_Joining_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Date Of Join
+        Employee_profile_update_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Account Updated
         maximum_sale:
           type: integer
           maximum: 2147483647
@@ -941,11 +1352,6 @@ components:
           title: Description
           maxLength: 100
         Product_quantity:
-          type: string
-          title: Quantity
-          description: Quantity like 1kg, 1.5lit, 200g. if no weight leave it blank
-          maxLength: 10
-        Product_count:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
@@ -954,11 +1360,22 @@ components:
           type: string
           format: decimal
           pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
-          title: Price Per quantity/count in Rs.
+          title: Price Per quantity in Rs.
         Product_image:
           type: string
           format: uri
           nullable: true
+        Product_add_date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date Of Add
+        Product_update_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Date of Update
         maximum_sale:
           type: integer
           maximum: 2147483647
@@ -979,11 +1396,6 @@ components:
           title: Description
           maxLength: 100
         Product_quantity:
-          type: string
-          title: Quantity
-          description: Quantity like 1kg, 1.5lit, 200g. if no weight leave it blank
-          maxLength: 10
-        Product_count:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
@@ -992,11 +1404,22 @@ components:
           type: string
           format: decimal
           pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
-          title: Price Per quantity/count in Rs.
+          title: Price Per quantity in Rs.
         Product_image:
           type: string
           format: uri
           nullable: true
+        Product_add_date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date Of Add
+        Product_update_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          title: Date of Update
         maximum_sale:
           type: integer
           maximum: 2147483647
@@ -1006,11 +1429,12 @@ components:
           maxLength: 50
           pattern: ^[-a-zA-Z0-9_]+$
       required:
-      - Product_count
+      - Product_add_date
       - Product_description
       - Product_name
       - Product_price
       - Product_quantity
+      - Product_update_date
     TokenObtainPair:
       type: object
       properties:
